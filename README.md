@@ -9,11 +9,15 @@
 [![Inflation](https://img.shields.io/badge/inflation-0%25-22c55e)](https://latanda.online/whitepaper.html)
 [![Mainnet](https://img.shields.io/badge/mainnet-Q1%202027-8b5cf6)](https://latanda.online/chain/)
 
-Este repositorio es el **mirror público** del frontend de La Tanda, el primer ecosistema Web3 soberano construido en Honduras para Latinoamérica.
+This repository is the **public mirror** of the La Tanda frontend — the first sovereign Web3 ecosystem built in Honduras for Latin America.
+
+> **Developer note:** This is a pure HTML/CSS/JS frontend (no build step). See **Development Setup** below to run locally.
 
 ---
 
-## 🌐 Qué es La Tanda
+## 🌐 What is La Tanda
+
+La Tanda is a **Web3 ecosystem with 7 integrated layers**, not a simple savings app. The tandas (rotating savings ROSCA groups) are ONE of the 7 layers. Think of it as Amazon to e-commerce: much more than a cardboard box.
 
 La Tanda es un **ecosistema Web3 con 7 capas integradas**, no una simple app de tandas. Las tandas (grupos de ahorro rotativo ROSCA) son UNA de las 7 capas. Piénsalo como Amazon al e-commerce: mucho más que una caja de cartón.
 
@@ -100,6 +104,55 @@ Reservados ~100K LTD para validadores que se suman antes del mainnet:
 
 **Cómo sumarte**: [Node Operator Guide](./la-tanda-chain-node-guide.md) (si está en este repo) o [latanda.online/chain](https://latanda.online/chain/)
 
+
+---
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+- **Node.js 18+** (or any static file server)
+- A modern browser (Chrome, Firefox, Edge)
+- Git
+
+### Local Development
+
+Since this is a pure HTML/CSS/JS frontend (no build step), serving it locally is straightforward:
+
+```bash
+# Clone the repository
+git clone https://github.com/INDIGOAZUL/la-tanda-web.git
+cd la-tanda-web
+
+# Option A: Using npx (recommended, no global install)
+npx serve .
+
+# Option B: Using Python (if you don't have Node.js)
+python3 -m http.server 8000
+
+# Option C: Using VS Code Live Server extension
+# Right-click index.html → "Open with Live Server"
+```
+
+Then open `http://localhost:3000` (or `http://localhost:8000` for Python) in your browser.
+
+### Development Notes
+
+- **No build step needed** — edit `.html`, `.css`, or `.js` files directly and refresh
+- **Auth tokens** use `localStorage.getItem('auth_token')` (snake_case)
+- **All user data** in HTML must use `escapeHtml()` for XSS safety
+- **UI text** should be in Spanish, **code** in English
+- **API endpoints** can be tested via the [Swagger UI](https://latanda.online/docs)
+- Before committing, verify no `console.log()` remains in production code
+- Never commit `.env` files or credentials (see `.env.example`)
+
+### Verifying Your Setup
+
+1. Open `http://localhost:3000` — you should see the La Tanda landing page
+2. Navigate to `http://localhost:3000/dev-dashboard.html` — Dev Portal should load
+3. Check API connectivity at `http://localhost:3000/docs` — Swagger UI should render
+
+
 ---
 
 ## 🚀 Quick Start
@@ -123,18 +176,18 @@ Reservados ~100K LTD para validadores que se suman antes del mainnet:
 
 ---
 
-## 📂 Estructura del repositorio
+## 📂 Repository Structure
 
 ```
 la-tanda-web/
-├── *.html                    # Páginas del ecosistema (60+ archivos)
-├── css/                      # Estilos (design-tokens, components, modules)
-├── js/                       # JavaScript (components-loader, hub, utilities)
-├── assets/                   # Imágenes, logos, favicons
-├── chain/                    # Recursos de La Tanda Chain (node-setup.sh, genesis.json)
-├── docs/                     # OpenAPI spec + Swagger UI
-├── .github/                  # Bounty templates, PR gatekeeper
-└── api-*.js                  # API adapters y proxies
+├── *.html                    # Ecosystem pages (60+ HTML files — pages, admin panels, tools)
+├── css/                      # Stylesheets (design tokens, components, modules)
+├── js/                       # JavaScript modules (components-loader, hub, utilities)
+├── assets/                   # Images, logos, favicons
+├── chain/                    # La Tanda Chain resources (node-setup.sh, genesis.json)
+├── docs/                     # OpenAPI specification + Swagger UI
+├── .github/                  # Bounty templates, PR gatekeeper workflows, ban list
+└── api-*.js                  # API adapters and proxies (api-proxy-enhanced.js is the main one)
 ```
 
 **Páginas principales alineadas al framework**:
